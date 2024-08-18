@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking de Películas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #movieList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #movieList li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #movieList li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ranking de Películas</h1>
+        <input type="text" id="searchInput" placeholder="Buscar película..." onkeyup="searchMovie()">
+        
+        <ul id="movieList">
+            {% for movie in movies %}
+                <li>{{movie.rank}} - {{movie.name}}</li>
+            {%endfor%}    
+        </ul>
+    </div>
+
+    <script>
+        function searchMovie() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let movieList = document.getElementById('movieList');
+            let movies = movieList.getElementsByTagName('li');
+
+            for (let i = 0; i < movies.length; i++) {
+                let movie = movies[i].textContent || movies[i].innerText;
+                if (movie.toLowerCase().indexOf(input) > -1) {
+                    movies[i].style.display = "";
+                } else {
+                    movies[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
